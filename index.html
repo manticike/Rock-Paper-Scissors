@@ -15,9 +15,37 @@
         * The choice is
         */
        function getComputerChoice() {
-        let computerChoice = Math.random()
+        let computerChoice = Math.random();
+
+        if (computerChoice >= 0 && computerChoice <= 0.333) {
+            computerChoice = "Rock";
+        } 
         
+        else if (computerChoice > 0.333 && computerChoice <= 0.666) {
+            computerChoice = "Paper";
        }
+
+       else if (computerChoice > 0.6666 && computerChoice < 1) {
+        computerChoice = "Scissors"
+       }
+       return computerChoice;
+    }  
+
+    /*
+    *Make a function name playerSelection(), that asks (prompts)the user to enter a string.
+    *Then converts the string to a lowercase in our case
+    * 
+    */
+
+    function playerSelection() {
+      let  playerChoice = prompt("What's your selection [Rock, Paper or Scissors]? ");
+        return playerChoice;
+    }
+
+    
+
+    console.log(playerSelection());
+       //console.log(getComputerChoice());
     </script>
 </body>
 </html>
