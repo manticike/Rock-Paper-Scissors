@@ -18,34 +18,118 @@
         let computerChoice = Math.random();
 
         if (computerChoice >= 0 && computerChoice <= 0.333) {
-            computerChoice = "Rock";
+            computerChoice = "rock";
         } 
         
         else if (computerChoice > 0.333 && computerChoice <= 0.666) {
-            computerChoice = "Paper";
+            computerChoice = "paper";
        }
 
        else if (computerChoice > 0.6666 && computerChoice < 1) {
-        computerChoice = "Scissors"
+        computerChoice = "scissors"
        }
        return computerChoice;
     }  
 
     /*
-    *Make a function name playerSelection(), that asks (prompts)the user to enter a string.
-    *Then converts the string to a lowercase in our case
+    *A function that accepts 2 parameters; playerSelection and computerSelection
+    * And plays a round of game to determine the winner.
     * 
-    */
+    * */
+    let playerScore = 0;
+   let computerScore = 0;
 
-    function playerSelection() {
-      let  playerChoice = prompt("What's your selection [Rock, Paper or Scissors]? ");
-        return playerChoice;
+   function playRound(playerSelection, computerSelection) {
+
+    computerSelection = getComputerChoice();
+
+    // When the player selects rock
+    if (playerSelection.toLowerCase() === "rock" && computerSelection === "paper") {
+        computerScore +=1;
+        return `You Lose! Paper beats Rock. You chose ${playerSelection} and computer chose ${computerSelection}`;
+        
+    }
+    
+    else if (playerSelection.toLowerCase() === "rock" && computerSelection === "scissors") {
+        playerScore += 1;
+        return `You Win! Rock Smashes Scissors. You chose ${playerSelection} and computer chose ${computerSelection}`;
+        
+    } 
+    else if (playerSelection.toLowerCase()===computerSelection.toLowerCase()){ 
+        return `It's a tie! You chose ${playerSelection} and computer chose ${computerSelection}`;
     }
 
-    
+    // When the player selects Paper
 
-    console.log(playerSelection());
-       //console.log(getComputerChoice());
+    if(playerSelection.toLowerCase() === "paper" && computerSelection === "rock") {
+        playerScore +=1;
+        return `You Win! Paper beats Rock. You chose ${playerSelection} and computer chose ${computerSelection}`;
+        
+    } 
+    
+    else if (playerSelection.toLowerCase() === "paper" && computerSelection === "scissors") {
+        computerScore +=1;
+        return `You Lose! Scissors cuts Paper. You chose ${playerSelection} and computer chose ${computerSelection}`;
+        
+    }
+    else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
+    return `It's a tie! You chose ${playerSelection} and computer chose ${computerSelection}`;
+}
+
+    // When the player selects Scissors
+
+    if (playerSelection.toLowerCase() === "scissors" && computerSelection === "rock") {
+        computerScore += 1;
+        return `You Lose! Rock Smashes Scissors. You chose ${playerSelection} and computer chose ${computerSelection}`;
+        
+    } 
+    
+    else if (playerSelection.toLowerCase() === "scissors" && computerSelection === "paper") {
+        playerScore +=1;
+        return `You Win! Scissors cuts Paper. You chose ${playerSelection} and computer chose ${computerSelection}`;
+        
+    }
+    else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()){
+        return `It's a tie! You chose ${playerSelection} and computer chose ${computerSelection}`;
+    }
+
+   }
+
+   
+
+   // Create a new function called game().
+   // Call the previous function; playRound() 5X in this function.
+   // repeat the function playRound() 5 times in function game()
+   //Keep the score of each round
+   //Report the winner or loser at the end
+
+
+
+
+   function game () {
+
+    for (i = 0; i < 5; i++) {
+
+        let playerSelection = prompt("What's your selection [Rock, Paper or Scissors]? ");
+    let playGame = playRound(playerSelection, getComputerChoice());
+
+    console.log(playGame);
+    
+    }
+
+    if (playerScore > computerScore) {
+        console.log (`You win! your score ${playerScore} and computer's score is ${computerScore}`)
+    }
+
+    else {
+        console.log(` You Lose! Your Score is ${playerScore} and computer's score is ${computerScore}`);
+    }
+    
+    
+   }
+
+   game();
+ 
     </script>
 </body>
 </html>
