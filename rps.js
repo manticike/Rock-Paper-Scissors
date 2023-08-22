@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>
-    <script src="rps.js"></script>
-</head>
-<body>
-    <!--
-        Create a button for rock
-        Create a button for paper
-        Create a button for scissors
-        the user would've to click on these buttons instead of typing his selection
-
-        Add an EVENT LISTENER  to each button that will call call the function PLAYROUND
-        It should be able to call playerSelection appropriately every time
-    -->
-
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
-
-    <script>
         /*
         * This function randomly returns either
         * Rock, Paper, or Scissors.
@@ -48,8 +24,20 @@
 
   
 
-    let playerScore = 0; // Keeps track of the player's score
-   let computerScore = 0; // this variable keeps track of computer's score
+    let playerScore = 0; // Player's score
+   let computerScore = 0; // Computer's score
+   const winningScore = 5; // Winning score
+
+
+   function checkWinner() {
+    if(playerScore === winningScore) {
+        console.log('Yay you Win!');
+        return true;
+    } else if (computerScore === winningScore) {
+        console.log('Computer wins');
+        return true;
+    }
+   }
 
   /* A function that accepts 2 parameters; playerSelection and computerSelection
     * And plays a round of game to determine the winner.
@@ -88,7 +76,7 @@
         computerScore +=1;
         return `You Lose! Scissors cuts Paper. You chose ${playerSelection} and computer chose ${computerSelection}`;    
     }
-    else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
+    else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {  
     return `It's a tie! You chose ${playerSelection} and computer chose ${computerSelection}`;
 }
 
@@ -102,55 +90,35 @@
     
     else if (playerSelection.toLowerCase() === "scissors" && computerSelection === "paper") {
         playerScore +=1;
-        return `You Win! Scissors cuts Paper. You chose ${playerSelection} and computer chose ${computerSelection}`;
-        
+        return `You Win! Scissors cuts Paper. You chose ${playerSelection} and computer chose ${computerSelection}`;     
     }
     else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()){
         return `It's a tie! You chose ${playerSelection} and computer chose ${computerSelection}`;
     }
-
    }
-
 
    /***
     * The game function runs the game 5 times and prints out the winner at the end
-    * 
-    * Changge the game logic to play until either the player or computer reaches 5 points
+    * Change the game logic to play until either the player or computer reaches 5 points
    */
 
    function game () {
-    do { {
+    let counter = 0;
+    while(!checkWinner())  { {
 
         let playerSelection = prompt("What's your selection [Rock, Paper or Scissors]? ");
-    let playGame = playRound(playerSelection, getComputerChoice());
+    let startGame = playRound(playerSelection, getComputerChoice());
 
-    console.log(playGame);
+    console.log(startGame);
     
     }
-
-    if (playerScore > computerScore) {
-        console.log (`You win! your score ${playerScore} and computer's score is ${computerScore}`)
-    }
-    else if ( computerScore > playerScore){
-        console.log(` You Lose! Your Score is ${playerScore} and computer's score is ${computerScore}`);
-    }
-    else {
-        console.log(`It's a tie! Your score is ${playerScore} and computer's score is ${computerScore}`);
-    }
-    playerScore++;
-    computerScore++;
+    console.log(`Your Score is: ${playerScore} && Computer's score is: ${computerScore}`);
+    counter++;
     } 
-    while(playerScore < 5 || computerScore < 5);
+   
+    // Output the final score line
+    console.log(`Your final score is ${playerScore} and Computer's final score is ${computerScore}`);
    }
-
-
    
    // Invoke the function game()
     game();
-
-
-
- 
-    </script>
-</body>
-</html>
