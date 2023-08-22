@@ -15,29 +15,34 @@
         * The choice is
         */
        function getComputerChoice() {
-        let computerChoice = Math.random();
+        let computerChoice = (Math.floor (Math.random() * 3) +1);
 
-        if (computerChoice >= 0 && computerChoice <= 0.333) {
+        if (computerChoice === 1) {
             computerChoice = "rock";
         } 
         
-        else if (computerChoice > 0.333 && computerChoice <= 0.666) {
+        else if (computerChoice === 2) {
             computerChoice = "paper";
        }
 
-       else if (computerChoice > 0.6666 && computerChoice < 1) {
+       else if (computerChoice === 3) {
         computerChoice = "scissors"
        }
        return computerChoice;
     }  
 
-    /*
-    *A function that accepts 2 parameters; playerSelection and computerSelection
+  
+
+    let playerScore = 0; // Keeps track of the player's score
+   let computerScore = 0; // this variable keeps track of computer's score
+
+  /* A function that accepts 2 parameters; playerSelection and computerSelection
     * And plays a round of game to determine the winner.
+    * It also increases the player or computer's score
     * 
+    * One thing I learnt is that you need to increase the scores before the return statements
     * */
-    let playerScore = 0;
-   let computerScore = 0;
+
 
    function playRound(playerSelection, computerSelection) {
 
@@ -46,16 +51,14 @@
     // When the player selects rock
     if (playerSelection.toLowerCase() === "rock" && computerSelection === "paper") {
         computerScore +=1;
-        return `You Lose! Paper beats Rock. You chose ${playerSelection} and computer chose ${computerSelection}`;
-        
+        return `You Lose! Paper beats Rock. You chose ${playerSelection} and computer chose ${computerSelection}`;  
     }
     
     else if (playerSelection.toLowerCase() === "rock" && computerSelection === "scissors") {
         playerScore += 1;
-        return `You Win! Rock Smashes Scissors. You chose ${playerSelection} and computer chose ${computerSelection}`;
-        
+        return `You Win! Rock Smashes Scissors. You chose ${playerSelection} and computer chose ${computerSelection}`;    
     } 
-    else if (playerSelection.toLowerCase()===computerSelection.toLowerCase()){ 
+    else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()){ 
         return `It's a tie! You chose ${playerSelection} and computer chose ${computerSelection}`;
     }
 
@@ -63,14 +66,12 @@
 
     if(playerSelection.toLowerCase() === "paper" && computerSelection === "rock") {
         playerScore +=1;
-        return `You Win! Paper beats Rock. You chose ${playerSelection} and computer chose ${computerSelection}`;
-        
+        return `You Win! Paper beats Rock. You chose ${playerSelection} and computer chose ${computerSelection}`;   
     } 
     
     else if (playerSelection.toLowerCase() === "paper" && computerSelection === "scissors") {
         computerScore +=1;
-        return `You Lose! Scissors cuts Paper. You chose ${playerSelection} and computer chose ${computerSelection}`;
-        
+        return `You Lose! Scissors cuts Paper. You chose ${playerSelection} and computer chose ${computerSelection}`;    
     }
     else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
     return `It's a tie! You chose ${playerSelection} and computer chose ${computerSelection}`;
@@ -95,17 +96,10 @@
 
    }
 
-   
 
-   // Create a new function called game().
-   // Call the previous function; playRound() 5X in this function.
-   // repeat the function playRound() 5 times in function game()
-   //Keep the score of each round
-   //Report the winner or loser at the end
-
-
-
-
+   /***
+    * The game function runs the game 5 times and prints out the winner at the end
+   */
    function game () {
 
     for (i = 0; i < 5; i++) {
@@ -120,14 +114,15 @@
     if (playerScore > computerScore) {
         console.log (`You win! your score ${playerScore} and computer's score is ${computerScore}`)
     }
-
-    else {
+    else if ( computerScore > playerScore){
         console.log(` You Lose! Your Score is ${playerScore} and computer's score is ${computerScore}`);
     }
-    
-    
+    else {
+        console.log(`It's a tie! Your score is ${playerScore} and computer's score is ${computerScore}`);
+    } 
    }
 
+   // Invoke the function game()
    game();
  
     </script>
