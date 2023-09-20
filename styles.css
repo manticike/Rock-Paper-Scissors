@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.main-heading {
+    height: 100px;
+    background-color: #B2BEB5;
+    color: blueviolet;
+    font-size: 32px;
+    text-align: center;
+    padding-top: 50px;
+    
+}
+
+
+.btn {
+    width: 150px;
+    height: 150px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.icon {
+    font-size: 5em;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+}

@@ -1,123 +1,64 @@
-   /*  * This function randomly returns either
-        * Rock, Paper, or Scissors.
-        * We'll first create a variable for the computer choice.
-        * That variable will display a random number. The random number is between 0 and 1
-        * The choice is */
+const choices = ["rock", "paper", "scissors"];
 
-   function getComputerChoice() {
-    let computerChoice = (Math.floor (Math.random() * 3) +1);
-    if (computerChoice === 1) {
-        computerChoice = "rock";
-    } 
-    else if (computerChoice === 2) {
-        computerChoice = "paper";
-   }
-   else if (computerChoice === 3) {
-    computerChoice = "scissors"
-   }
-   return computerChoice;
-}  
+const buttons = document.querySelectorAll(".btn");
 
-let playerScore = 0; // Player's score
-let computerScore = 0; // Computer's score
-const winningScore = 5; // Winning score. Thi
+// Variables to keep the scores
+let playerScore = 0;
+let computerScore = 0;
+let gamePoint = 0;
+
+//let buttonDisabled = disableButtons();
+
+// Disable the game buttons until the page is reloaded
+const newButton = document.getElementsByClassName("btn");
+
+buttons.forEach(button => {
+  button.addEventListener("click", function playRound() {
+    const playerChoice = this.id;
+    const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+    const result = checkWinner(playerChoice, computerChoice);
+    document.getElementById("result").innerText = result;
+
+    // Keep the scores for each player
+    const scores = document.querySelector('#scoreLine');
+  
+    scores.textContent = `Your score is: ${playerScore} and Computer's score is: ${computerScore}`;
+    
+  
+    if (playerScore === 5) {
+     alert("You win! 'play again button to restart'");
+    } else if (computerScore === 5) {
+      alert("Computer Wins! Click on the 'play again button to restart'");
+    }
+   
+  });
+  
+});
 
 
-// The function will check if the player's or computer's score is 
-function checkWinner() {
- if(playerScore === winningScore) {
-     console.log('Yay you Win!');
-     return true;
- } else if (computerScore === winningScore) {
-     console.log('Computer wins');
-     return true;
- }
+
+function checkWinner(player, computer) {
+  if (player === computer) {
+    return "It's a tie!";
+  } else if (
+    (player === "rock" && computer === "scissors") ||
+    (player === "paper" && computer === "rock") ||
+    (player === "scissors" && computer === "paper")
+  ) {
+    playerScore++;
+    return `You win! You chose ${player} and computer chose ${computer}`;
+  } else {
+    computerScore++;
+    return `Computer wins! You chose ${player} and computer choose ${computer}`;
+  
+  }
 }
 
-let scoreLine = document.getElementById('gameResults'); // Set a variable to the div in the html. This get a reference to the 'gameResults' div element
 
-let playerParagraph = document.createElement('p'); // Create a new paragraph for the players score
+// Add event listener to the reset button
+const resetButton = document.getElementById("reset").addEventListener("click", () => {
+  // Reload the page to reset the game
+  location.reload();
+});
 
-// Create a new paragraph for the computer score
-let computerParagraph = document.createElement('p');
-
-// a variable for when the player clicks on the rock button
-const rockButton = document.getElementById('rock'); 
-
-// Function to modify when the player click on the Rock button
-function playRound(playerSelection, computerSelection) {
-    playerSelection = rockButton;
-    computerSelection = getComputerChoice();
-
-    if (playerSelection && computerSelection === "paper") {
-        computerScore +=1;
-        playerParagraph.textContent = `Your Score is: ${playerScore}`; // Displays player's score on screen
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`; // Displays computer's score on screen
-    }
-    else if (playerSelection && computerSelection === "scissors") {
-        playerScore += 1;
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-    else {
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-}
-
-// Function to modify when the player clicks on the paper button
-
-const paperButton = document.getElementById('paper');
-
-function playRound(playerSelection, computerSelection) {
-    playerSelection = paperButton;
-    computerSelection = getComputerChoice();
-
-    if (playerSelection && computerSelection === "scissors") {
-        computerScore +=1;
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-    else if (playerSelection && computerSelection === "rock") {
-        playerScore += 1;
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-    else {
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-}
-
-// a variable for the scissors button id
-const scissorsButton = document.getElementById('scissors');
-
-// Function to modify when the player clicks on the scissors button
-function playRound(playerSelection, computerSelection) {
-    playerSelection = scissorsButton;
-    computerSelection = getComputerChoice();
-
-    if (playerSelection && computerSelection === "rock") {
-        computerScore +=1;
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-    else if (playerSelection && computerSelection === "paper") {
-        playerScore += 1;
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-    else {
-        playerParagraph.textContent = `Your Score is: ${playerScore}`;
-        computerParagraph.textContent = `The Computer's Score is: ${computerScore}`;
-    }
-}
-
-// Append the newly created paragraphs to the 'gameResults' div
-scoreLine.appendChild(playerParagraph);
-scoreLine.appendChild(computerParagraph);
-
-// Listen for click events for all the buttons
-rockButton.addEventListener('click',playRound);
-paperButton.addEventListener('click', playRound);
-scissorsButton.addEventListener('click', playRound);
